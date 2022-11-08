@@ -10,4 +10,6 @@ public class UcanbankApplication {
 		SpringApplication.run(UcanbankApplication.class, args);
 	}
 
+
+
 }
