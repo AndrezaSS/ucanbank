@@ -1,6 +1,10 @@
 package br.com.ucanbank.model;
 
+import java.util.List;
+
 public class Conta {
+
+    List<Transacao> transacao;
 
     private int idConta;
 

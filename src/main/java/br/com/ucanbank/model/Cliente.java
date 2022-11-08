@@ -1,6 +1,7 @@
 package br.com.ucanbank.model;
 
 public class Cliente {
+    private Conta conta;
 
     private int idCliente;
 

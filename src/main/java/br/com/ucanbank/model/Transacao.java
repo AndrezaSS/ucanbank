@@ -4,6 +4,26 @@ import java.util.Date;
 
 public class Transacao {
 
+    Conta contaOrigem;
+    Conta contaDestino;
+
+
+    public Conta getContaOrigem() {
+        return contaOrigem;
+    }
+
+    public void setContaOrigem(Conta contaOrigem) {
+        this.contaOrigem = contaOrigem;
+    }
+
+    public Conta getContaDestino() {
+        return contaDestino;
+    }
+
+    public void setContaDestino(Conta contaDestino) {
+        this.contaDestino = contaDestino;
+    }
+
     private int idTransacao;
 
     private Date dataTransacao;
@@ -40,7 +60,9 @@ public class Transacao {
     @Override
     public String toString() {
         return "Transacao{" +
-                "idTransacao=" + idTransacao +
+                "contaOrigem=" + contaOrigem +
+                ", contaDestino=" + contaDestino +
+                ", idTransacao=" + idTransacao +
                 ", dataTransacao=" + dataTransacao +
                 ", valorTransacao=" + valorTransacao +
                 '}';
