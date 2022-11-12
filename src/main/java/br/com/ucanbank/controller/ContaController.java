@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/conta")
-
 public class ContaController {
     @GetMapping
     @RequestMapping("/all")

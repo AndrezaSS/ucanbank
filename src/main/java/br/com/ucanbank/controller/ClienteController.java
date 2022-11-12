@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cliente")
-
 public class ClienteController {
       @GetMapping
       @RequestMapping("/all")
