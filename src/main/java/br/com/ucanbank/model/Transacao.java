@@ -1,12 +1,18 @@
 package br.com.ucanbank.model;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Transacao {
 
     Conta contaOrigem;
     Conta contaDestino;
-    private int idTransacao;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long idTransacao;
 
     private String dataTransacao;
 
@@ -18,6 +24,14 @@ public class Transacao {
     public Conta getContaOrigem() {
 
         return contaOrigem;
+    }
+
+    public Transacao(Conta contaOrigem, Conta contaDestino, Long idTransacao, String dataTransacao, double valorTransacao) {
+        this.contaOrigem = contaOrigem;
+        this.contaDestino = contaDestino;
+        this.idTransacao = idTransacao;
+        this.dataTransacao = dataTransacao;
+        this.valorTransacao = valorTransacao;
     }
 
     public void setContaOrigem(Conta contaOrigem) {
@@ -35,12 +49,12 @@ public class Transacao {
         this.contaDestino = contaDestino;
     }
 
-    public int getIdTransacao() {
+    public Long getIdTransacao() {
 
         return idTransacao;
     }
 
-    public void setIdTransacao(int idTransacao) {
+    public void setIdTransacao(Long idTransacao) {
 
         this.idTransacao = idTransacao;
     }
