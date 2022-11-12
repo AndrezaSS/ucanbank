@@ -1,6 +1,9 @@
 package br.com.ucanbank.controller;
 
 
+import br.com.ucanbank.model.Cliente;
+import br.com.ucanbank.model.Conta;
+import br.com.ucanbank.model.Transacao;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,26 +11,35 @@ import org.springframework.web.bind.annotation.*;
 
 public class ContaController {
     @GetMapping
-    public void buscaContas(){
-
+    @RequestMapping("/all")
+    public String buscaContas(){
+        return "Metodo retornar contas";
     }
-    @GetMapping
-    public void buscaContaPorId(){
+    @GetMapping("/{id}")
+    public double buscaContaPorId(@PathVariable int id){
+        System.out.println("id da transacao a ser localizado " + id);
+        Conta conta = new Conta();
+        conta.setIdConta(id);
+        conta.setSaldo(100.00);
 
+        return conta.getSaldo();
     }
 
     @PostMapping
-    public void insereConta(){
-
+    public String insereConta(@RequestBody Conta conta){
+        System.out.println(conta.getNumConta());
+        return "Método inserir conta";
     }
 
-    @PutMapping
-    public void alteraConta(){
-
+    @PutMapping("/{id}")
+    public String alteraConta(@RequestBody Conta conta){
+        return "metodo alterar conta";
     }
 
-    @DeleteMapping
-    public void deletaConta(){
+    @DeleteMapping("/{id}")
+    public int deletaConta(@PathVariable int id){
+        System.out.println("id do cliente a ser deletado " + id);
+        return id;
 
     }
 

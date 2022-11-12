@@ -8,16 +8,16 @@ public class Conta {
 
     private int idConta;
 
-    private int agencia;
+    private String agencia;
 
-    private int numConta;
+    private String numConta;
 
     private double saldo;
 
     public Conta() {
     }
 
-    public Conta(int idConta, int agencia, int numConta, double saldo) {
+    public Conta(int idConta, String agencia, String numConta, double saldo) {
         this.idConta = idConta;
         this.agencia = agencia;
         this.numConta = numConta;
@@ -32,19 +32,19 @@ public class Conta {
         this.idConta = idConta;
     }
 
-    public int getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(int agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 
-    public int getNumConta() {
+    public String getNumConta() {
         return numConta;
     }
 
-    public void setNumConta(int numConta) {
+    public void setNumConta(String numConta) {
         this.numConta = numConta;
     }
 

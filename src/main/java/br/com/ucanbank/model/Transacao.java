@@ -6,54 +6,62 @@ public class Transacao {
 
     Conta contaOrigem;
     Conta contaDestino;
-
-
-    public Conta getContaOrigem() {
-        return contaOrigem;
-    }
-
-    public void setContaOrigem(Conta contaOrigem) {
-        this.contaOrigem = contaOrigem;
-    }
-
-    public Conta getContaDestino() {
-        return contaDestino;
-    }
-
-    public void setContaDestino(Conta contaDestino) {
-        this.contaDestino = contaDestino;
-    }
-
     private int idTransacao;
 
-    private Date dataTransacao;
+    private String dataTransacao;
 
     private double valorTransacao;
 
     public Transacao() {
     }
 
+    public Conta getContaOrigem() {
+
+        return contaOrigem;
+    }
+
+    public void setContaOrigem(Conta contaOrigem) {
+
+        this.contaOrigem = contaOrigem;
+    }
+
+    public Conta getContaDestino() {
+
+        return contaDestino;
+    }
+
+    public void setContaDestino(Conta contaDestino) {
+
+        this.contaDestino = contaDestino;
+    }
+
     public int getIdTransacao() {
+
         return idTransacao;
     }
 
     public void setIdTransacao(int idTransacao) {
+
         this.idTransacao = idTransacao;
     }
 
-    public Date getDataTransacao() {
+    public String getDataTransacao() {
+
         return dataTransacao;
     }
 
-    public void setDataTransacao(Date dataTransacao) {
+    public void setDataTransacao(String dataTransacao) {
+
         this.dataTransacao = dataTransacao;
     }
 
     public double getValorTransacao() {
+
         return valorTransacao;
     }
 
     public void setValorTransacao(double valorTransacao) {
+
         this.valorTransacao = valorTransacao;
     }
 

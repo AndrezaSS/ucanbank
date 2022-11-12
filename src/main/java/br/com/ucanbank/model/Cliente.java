@@ -1,11 +1,12 @@
 package br.com.ucanbank.model;
 
 public class Cliente {
+
     private Conta conta;
 
     private int idCliente;
 
-    private int cpf;
+    private String cpf;
 
     private String nome;
 
@@ -16,7 +17,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int idCliente, int cpf, String nome, String email, String endereco) {
+    public Cliente(int idCliente, String cpf, String nome, String email, String endereco) {
         this.idCliente = idCliente;
         this.cpf = cpf;
         this.nome = nome;
@@ -32,11 +33,11 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
