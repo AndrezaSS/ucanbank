@@ -1,12 +1,17 @@
 package br.com.ucanbank.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
-
+@Entity
 public class Conta {
 
     List<Transacao> transacao;
-
-    private int idConta;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long idConta;
 
     private String agencia;
 
@@ -17,18 +22,18 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(int idConta, String agencia, String numConta, double saldo) {
+    public Conta(Long idConta, String agencia, String numConta, double saldo) {
         this.idConta = idConta;
         this.agencia = agencia;
         this.numConta = numConta;
         this.saldo = saldo;
     }
 
-    public int getIdConta() {
+    public Long getIdConta() {
         return idConta;
     }
 
-    public void setIdConta(int idConta) {
+    public void setIdConta(Long idConta) {
         this.idConta = idConta;
     }
 

@@ -1,11 +1,27 @@
 package br.com.ucanbank.model;
 
+
+import br.com.ucanbank.enumeration.StatusCliente;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+//Implantação do Entity para declarar que estas classes são entidades e devem ser persistidas no BD
+@Entity
 public class Cliente {
+
 
     private Conta conta;
 
-    private int idCliente;
+    //Uso de annotation Id e GenerateValue para autoincremento automático na criação dos Ids
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long idCliente;
 
+    private StatusCliente statusCliente = StatusCliente.INATIVO;
     private String cpf;
 
     private String nome;
@@ -17,19 +33,29 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String cpf, String nome, String email, String endereco) {
+    public Cliente(Conta conta, Long idCliente, StatusCliente statusCliente, String cpf, String nome, String email, String endereco) {
+        this.conta = conta;
         this.idCliente = idCliente;
+        this.statusCliente = statusCliente;
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
     }
 
-    public int getIdCliente() {
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    public Long getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -66,11 +92,17 @@ public class Cliente {
         this.endereco = endereco;
     }
 
+    public StatusCliente getStatusCliente() {
+        return statusCliente;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
-                "idCliente=" + idCliente +
-                ", cpf=" + cpf +
+                "conta=" + conta +
+                ", idCliente=" + idCliente +
+                ", statusCliente=" + statusCliente +
+                ", cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", endereco='" + endereco + '\'' +
