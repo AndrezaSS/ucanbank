@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Transacao {
@@ -14,7 +16,7 @@ public class Transacao {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idTransacao;
 
-    private String dataTransacao;
+    private LocalDate dataTransacao;
 
     private double valorTransacao;
 
@@ -26,7 +28,7 @@ public class Transacao {
         return contaOrigem;
     }
 
-    public Transacao(Conta contaOrigem, Conta contaDestino, Long idTransacao, String dataTransacao, double valorTransacao) {
+    public Transacao(Conta contaOrigem, Conta contaDestino, Long idTransacao, LocalDate dataTransacao, double valorTransacao) {
         this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
         this.idTransacao = idTransacao;
@@ -59,12 +61,12 @@ public class Transacao {
         this.idTransacao = idTransacao;
     }
 
-    public String getDataTransacao() {
+    public LocalDate getDataTransacao() {
 
         return dataTransacao;
     }
 
-    public void setDataTransacao(String dataTransacao) {
+    public void setDataTransacao(LocalDate dataTransacao) {
 
         this.dataTransacao = dataTransacao;
     }
@@ -77,6 +79,20 @@ public class Transacao {
     public void setValorTransacao(double valorTransacao) {
 
         this.valorTransacao = valorTransacao;
+    }
+
+    //Método utilizado pelo JPA para comparação de objetos
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transacao transacao = (Transacao) o;
+        return idTransacao.equals(transacao.idTransacao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTransacao);
     }
 
     @Override

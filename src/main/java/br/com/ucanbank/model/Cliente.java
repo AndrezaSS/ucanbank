@@ -3,18 +3,16 @@ package br.com.ucanbank.model;
 
 import br.com.ucanbank.enumeration.StatusCliente;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 
 //Implantação do Entity para declarar que estas classes são entidades e devem ser persistidas no BD
 @Entity
+@MappedSuperclass
 public class Cliente {
 
 
-    private Conta conta;
 
     //Uso de annotation Id e GenerateValue para autoincremento automático na criação dos Ids
     @Id
@@ -22,7 +20,7 @@ public class Cliente {
     private Long idCliente;
 
     private StatusCliente statusCliente = StatusCliente.INATIVO;
-    private String cpf;
+
 
     private String nome;
 
@@ -33,11 +31,10 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Conta conta, Long idCliente, StatusCliente statusCliente, String cpf, String nome, String email, String endereco) {
+    public Cliente(Conta conta, Long idCliente, StatusCliente statusCliente, String nome, String email, String endereco) {
         this.conta = conta;
         this.idCliente = idCliente;
         this.statusCliente = statusCliente;
-        this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
@@ -57,14 +54,6 @@ public class Cliente {
 
     public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -97,12 +86,24 @@ public class Cliente {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return idCliente.equals(cliente.idCliente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCliente);
+    }
+
+    @Override
     public String toString() {
         return "Cliente{" +
                 "conta=" + conta +
                 ", idCliente=" + idCliente +
                 ", statusCliente=" + statusCliente +
-                ", cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", endereco='" + endereco + '\'' +
