@@ -1,10 +1,9 @@
 package br.com.ucanbank.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 public class Conta {
 
@@ -18,6 +17,9 @@ public class Conta {
     private String numConta;
 
     private double saldo;
+
+    @OneToOne
+    private Cliente cliente;
 
     public Conta() {
     }
@@ -59,6 +61,19 @@ public class Conta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conta conta = (Conta) o;
+        return idConta.equals(conta.idConta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idConta);
     }
 
     @Override
