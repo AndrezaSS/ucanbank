@@ -1,55 +1,39 @@
 package br.com.ucanbank.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "transacao")
 public class Transacao {
 
-    Conta contaOrigem;
-    Conta contaDestino;
+    @ManyToOne
+    @JoinColumn (name="id_conta")  //Chave estrangeira
+    @JsonIgnore
+    private Conta conta;
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id_transacao")
     private Long idTransacao;
-
+    @Column(name = "data_transacao")
     private LocalDate dataTransacao;
-
+    @Column(name = "valor_transacao")
     private double valorTransacao;
 
     public Transacao() {
     }
 
-    public Conta getContaOrigem() {
 
-        return contaOrigem;
-    }
-
-    public Transacao(Conta contaOrigem, Conta contaDestino, Long idTransacao, LocalDate dataTransacao, double valorTransacao) {
-        this.contaOrigem = contaOrigem;
-        this.contaDestino = contaDestino;
+    public Transacao(Conta conta, Long idTransacao, LocalDate dataTransacao, double valorTransacao) {
+        this.conta = conta;
         this.idTransacao = idTransacao;
         this.dataTransacao = dataTransacao;
         this.valorTransacao = valorTransacao;
     }
 
-    public void setContaOrigem(Conta contaOrigem) {
-
-        this.contaOrigem = contaOrigem;
-    }
-
-    public Conta getContaDestino() {
-
-        return contaDestino;
-    }
-
-    public void setContaDestino(Conta contaDestino) {
-
-        this.contaDestino = contaDestino;
-    }
 
     public Long getIdTransacao() {
 
@@ -98,8 +82,7 @@ public class Transacao {
     @Override
     public String toString() {
         return "Transacao{" +
-                "contaOrigem=" + contaOrigem +
-                ", contaDestino=" + contaDestino +
+                "conta=" + conta +
                 ", idTransacao=" + idTransacao +
                 ", dataTransacao=" + dataTransacao +
                 ", valorTransacao=" + valorTransacao +

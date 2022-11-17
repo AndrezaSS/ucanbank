@@ -2,6 +2,9 @@ package br.com.ucanbank.model;
 
 import br.com.ucanbank.enumeration.StatusCliente;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ClientePF extends Cliente{
     private String cpf;
 
@@ -9,11 +12,14 @@ public class ClientePF extends Cliente{
 
     }
 
-    public ClientePF(Conta conta, Long idCliente, StatusCliente statusCliente, String nome, String email, String endereco, String cpf) {
-        super(conta, idCliente, statusCliente, nome, email, endereco);
+    public ClientePF(String cpf) {
         this.cpf = cpf;
     }
 
+    public ClientePF(Long idCliente, String nome, String email, String endereco, StatusCliente statusCliente, String cpf) {
+        super(idCliente, nome, email, endereco, statusCliente);
+        this.cpf = cpf;
+    }
 
     public String getCpf() {
         return cpf;

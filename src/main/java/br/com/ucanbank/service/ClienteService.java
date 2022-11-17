@@ -2,6 +2,8 @@ package br.com.ucanbank.service;
 
 import br.com.ucanbank.enumeration.StatusCliente;
 import br.com.ucanbank.model.Cliente;
+import br.com.ucanbank.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @Component
 public class ClienteService {
+
+    @Autowired
+    private ClienteRepository cr;
     @GetMapping
     public void buscaClientes(){
 

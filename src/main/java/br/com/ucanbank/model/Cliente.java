@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 //Implantação do Entity para declarar que estas classes são entidades e devem ser persistidas no BD
-@Entity
+
 @MappedSuperclass
 public class Cliente {
 
@@ -17,35 +17,29 @@ public class Cliente {
     //Uso de annotation Id e GenerateValue para autoincremento automático na criação dos Ids
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id_cliente")
     private Long idCliente;
 
-    private StatusCliente statusCliente = StatusCliente.INATIVO;
-
-
+    @Column(name = "nome")
     private String nome;
 
-   private String email;
-
+    @Column(name = "email")
+    private String email;
+    @Column(name = "endereco")
     private String endereco;
+
+    @Column(name = "status_cliente")
+    private StatusCliente statusCliente = StatusCliente.INATIVO;
 
     public Cliente() {
     }
 
-    public Cliente(Conta conta, Long idCliente, StatusCliente statusCliente, String nome, String email, String endereco) {
-        this.conta = conta;
+    public Cliente(Long idCliente, String nome, String email, String endereco, StatusCliente statusCliente) {
         this.idCliente = idCliente;
-        this.statusCliente = statusCliente;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
-    }
-
-    public Conta getConta() {
-        return conta;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
+        this.statusCliente = statusCliente;
     }
 
     public Long getIdCliente() {
@@ -101,12 +95,11 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "conta=" + conta +
-                ", idCliente=" + idCliente +
-                ", statusCliente=" + statusCliente +
+                "idCliente=" + idCliente +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", endereco='" + endereco + '\'' +
+                ", statusCliente=" + statusCliente +
                 '}';
     }
 }

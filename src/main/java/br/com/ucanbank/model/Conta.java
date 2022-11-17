@@ -1,34 +1,72 @@
 package br.com.ucanbank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "conta")
 public class Conta {
 
+
+    @OneToMany(mappedBy = "conta")
+    @JsonIgnore
     List<Transacao> transacao;
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long idConta;
-
-    private String agencia;
-
-    private String numConta;
-
-    private double saldo;
 
     @OneToOne
-    private Cliente cliente;
+    private ClientePF clientePF;
+
+    @OneToOne
+    private ClientePJ clientePJ;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id_conta")
+    private Long idConta;
+    @Column(name = "agencia")
+    private String agencia;
+    @Column(name = "numconta")
+    private String numConta;
+    @Column(name = "saldo")
+    private double saldo;
+
 
     public Conta() {
     }
 
-    public Conta(Long idConta, String agencia, String numConta, double saldo) {
+    public Conta(List<Transacao> transacao, ClientePF clientePF, ClientePJ clientePJ, Long idConta, String agencia, String numConta, double saldo) {
+        this.transacao = transacao;
+        this.clientePF = clientePF;
+        this.clientePJ = clientePJ;
         this.idConta = idConta;
         this.agencia = agencia;
         this.numConta = numConta;
         this.saldo = saldo;
+    }
+
+    public List<Transacao> getTransacao() {
+        return transacao;
+    }
+
+    public void setTransacao(List<Transacao> transacao) {
+        this.transacao = transacao;
+    }
+
+    public ClientePF getClientePF() {
+        return clientePF;
+    }
+
+    public void setClientePF(ClientePF clientePF) {
+        this.clientePF = clientePF;
+    }
+
+    public ClientePJ getClientePJ() {
+        return clientePJ;
+    }
+
+    public void setClientePJ(ClientePJ clientePJ) {
+        this.clientePJ = clientePJ;
     }
 
     public Long getIdConta() {
@@ -79,9 +117,12 @@ public class Conta {
     @Override
     public String toString() {
         return "Conta{" +
-                "idConta=" + idConta +
-                ", agencia=" + agencia +
-                ", numConta=" + numConta +
+                "transacao=" + transacao +
+                ", clientePF=" + clientePF +
+                ", clientePJ=" + clientePJ +
+                ", idConta=" + idConta +
+                ", agencia='" + agencia + '\'' +
+                ", numConta='" + numConta + '\'' +
                 ", saldo=" + saldo +
                 '}';
     }
