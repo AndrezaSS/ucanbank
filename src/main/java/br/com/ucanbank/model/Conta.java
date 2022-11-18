@@ -11,27 +11,29 @@ import java.util.Objects;
 public class Conta {
 
 
-    @OneToMany(mappedBy = "conta")
+    @OneToMany(mappedBy = "contaOrigem")
     @JsonIgnore
     List<Transacao> transacao;
+
 
     @OneToOne
     private ClientePF clientePF;
 
     @OneToOne
     private ClientePJ clientePJ;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_conta")
-    private Long idConta;
+    private Long IdContaOrigem;
+
+
     @Column(name = "agencia")
     private String agencia;
     @Column(name = "numconta")
     private String numConta;
     @Column(name = "saldo")
     private double saldo;
-
-
     public Conta() {
     }
 
@@ -39,7 +41,7 @@ public class Conta {
         this.transacao = transacao;
         this.clientePF = clientePF;
         this.clientePJ = clientePJ;
-        this.idConta = idConta;
+        this.IdContaOrigem = idConta;
         this.agencia = agencia;
         this.numConta = numConta;
         this.saldo = saldo;
@@ -70,11 +72,11 @@ public class Conta {
     }
 
     public Long getIdConta() {
-        return idConta;
+        return IdContaOrigem;
     }
 
     public void setIdConta(Long idConta) {
-        this.idConta = idConta;
+        this.IdContaOrigem = idConta;
     }
 
     public String getAgencia() {
@@ -106,12 +108,12 @@ public class Conta {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conta conta = (Conta) o;
-        return idConta.equals(conta.idConta);
+        return IdContaOrigem.equals(conta.IdContaOrigem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idConta);
+        return Objects.hash(IdContaOrigem);
     }
 
     @Override
@@ -120,7 +122,7 @@ public class Conta {
                 "transacao=" + transacao +
                 ", clientePF=" + clientePF +
                 ", clientePJ=" + clientePJ +
-                ", idConta=" + idConta +
+                ", idConta=" + IdContaOrigem +
                 ", agencia='" + agencia + '\'' +
                 ", numConta='" + numConta + '\'' +
                 ", saldo=" + saldo +

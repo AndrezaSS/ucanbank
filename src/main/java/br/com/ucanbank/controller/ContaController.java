@@ -1,10 +1,17 @@
 package br.com.ucanbank.controller;
 
 
+import br.com.ucanbank.model.Cliente;
+import br.com.ucanbank.model.ClientePF;
 import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/conta")
@@ -14,35 +21,58 @@ public class ContaController {
     private ContaService contaService;
     @GetMapping
     @RequestMapping("/all")
-    public String buscaContas(){
-        return "Metodo retornar contas";
-    }
+    public ResponseEntity<List<Conta>> buscaContas(){
+
+        return ResponseEntity.ok(contaService.buscaContas());    }
     @GetMapping("/{id}")
-    public double buscaContaPorId(@PathVariable Long id){
-        System.out.println("id da transacao a ser localizado " + id);
-        Conta conta = new Conta();
-        conta.setIdConta(id);
-        conta.setSaldo(100.00);
+    public ResponseEntity<?> buscaContaPorId(@PathVariable Long id){
+        Optional<Conta> conta = contaService.buscaContaPorId(id);
 
-        return conta.getSaldo();
+        if (conta.isPresent()) {
+            return ResponseEntity.ok(conta.get());
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public String insereConta(@RequestBody Conta conta){
-        System.out.println(conta.getNumConta());
-        return "Método inserir conta";
+
+
+    @PostMapping("/pf")
+    public ResponseEntity<Conta> insereContaPF(@RequestBody Conta conta){
+        return ResponseEntity.ok(contaService.insereContaPF(conta));
     }
 
-    @PutMapping("/{id}")
-    public String alteraConta(@RequestBody Conta conta){
-        return "metodo alterar conta";
+    @PostMapping("/pj")
+    public ResponseEntity<Conta> insereContaPJ(@RequestBody Conta conta){
+        return ResponseEntity.ok(contaService.insereContaPJ(conta));
+    }
+
+
+    @PutMapping
+    public ResponseEntity<Conta> alteraConta(@RequestBody Conta conta){
+
+        return ResponseEntity.ok(contaService.alteraConta(conta));
     }
 
     //Implantação do método deletaConta usando annotation DeleteMapping para exclusão de Conta
     @DeleteMapping("/{id}")
-    public Long deletaConta(@PathVariable Long id){
-        System.out.println("id do cliente a ser deletado " + id);
-        return id;
+    public ResponseEntity<?> deletaConta(@PathVariable Long id) throws Exception{
+        if (id == null) {
+            return ResponseEntity.badRequest().body("Id não pode ser null");
+        }
+
+        Optional<Conta> conta = contaService.buscaContaPorId(id);
+
+        if (conta.isPresent()) {
+            contaService.deletaConta(id);
+            return ResponseEntity.ok().body("Conta excluido com sucesso");
+
+        } else {
+            return ResponseEntity.ok().body("Conta não encontrada");
+        }
+
+
+
 
     }
 

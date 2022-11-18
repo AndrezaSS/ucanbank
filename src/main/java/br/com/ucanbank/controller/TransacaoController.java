@@ -1,10 +1,16 @@
 package br.com.ucanbank.controller;
 
 
+import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/transacao")
@@ -14,25 +20,25 @@ public class TransacaoController {
     private TransacaoService transacaoService;
     @GetMapping
     @RequestMapping("/all")
-    public String buscaTransacoes(){
-        return "Metodo retornar transacoes";
+    public ResponseEntity<List<Transacao>> buscaTransacoes(){
+        return ResponseEntity.ok(transacaoService.buscaTransacoes());
     }
     @GetMapping("/{id}")
-    public double buscaTransacaoPorId(@PathVariable Long id){
+    public ResponseEntity<?> buscaTransacaoPorId(@PathVariable Long id){
 
-        System.out.println("id da conta a ser localizado " + id);
-        Transacao transacao = new Transacao();
-        transacao.setIdTransacao(id);
-        transacao.setValorTransacao(100.00);
+        Optional<Transacao> transacao = transacaoService.buscaTransacaoPorId(id);
 
-        return transacao.getValorTransacao();
+        if (transacao.isPresent()) {
+            return ResponseEntity.ok(transacao.get());
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 
     @PostMapping
-    public String insereTransacao(@RequestBody Transacao transacao){
-        return "retorna metodo insere transacao";
-
+    public ResponseEntity<Transacao> insereTransacao(@RequestBody Transacao transacao){
+        return ResponseEntity.ok(transacaoService.insereTransacao(transacao));
     }
 
 }

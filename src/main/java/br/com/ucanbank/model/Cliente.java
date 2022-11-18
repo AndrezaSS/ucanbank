@@ -9,7 +9,9 @@ import java.util.Objects;
 
 //Implantação do Entity para declarar que estas classes são entidades e devem ser persistidas no BD
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Tipo")
 public class Cliente {
 
 
