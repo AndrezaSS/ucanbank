@@ -11,29 +11,42 @@ import java.util.Objects;
 public class Transacao {
 
     @ManyToOne
-    @JoinColumn (name="id_conta")  //Chave estrangeira
+    @JoinColumn (name="IdContaOrigem")  //Chave estrangeira
     @JsonIgnore
-    private Conta conta;
+    private Conta contaOrigem;
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
+    @Column(name = "conta_destino")
+    private String contaDestino;
+
     @Column(name = "data_transacao")
     private LocalDate dataTransacao;
     @Column(name = "valor_transacao")
     private double valorTransacao;
 
+    public String getContaDestino() {
+        return contaDestino;
+    }
+
+    public void setContaDestino(String contaDestino) {
+        this.contaDestino = contaDestino;
+    }
+
+
+
     public Transacao() {
     }
 
 
-    public Transacao(Conta conta, Long idTransacao, LocalDate dataTransacao, double valorTransacao) {
-        this.conta = conta;
+    public Transacao(Conta contaOrigem, Long idTransacao, String contaDestino, LocalDate dataTransacao, double valorTransacao) {
+        this.contaOrigem = contaOrigem;
         this.idTransacao = idTransacao;
+        this.contaDestino = contaDestino;
         this.dataTransacao = dataTransacao;
         this.valorTransacao = valorTransacao;
     }
-
 
     public Long getIdTransacao() {
 
@@ -82,8 +95,9 @@ public class Transacao {
     @Override
     public String toString() {
         return "Transacao{" +
-                "conta=" + conta +
+                "contaOrigem=" + contaOrigem +
                 ", idTransacao=" + idTransacao +
+                ", contaDestino='" + contaDestino + '\'' +
                 ", dataTransacao=" + dataTransacao +
                 ", valorTransacao=" + valorTransacao +
                 '}';

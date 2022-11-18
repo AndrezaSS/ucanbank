@@ -1,14 +1,20 @@
 package br.com.ucanbank.controller;
 
 import br.com.ucanbank.model.Cliente;
+import br.com.ucanbank.model.ClientePF;
+import br.com.ucanbank.model.ClientePJ;
 import br.com.ucanbank.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 //Implantação do RestController para indicação da classe como controller
 @RestController
-//Implantação da annotation RequestMapping para indicação do caminho do endpoint
-@RequestMapping("/cliente")
+
 public class ClienteController {
 
      //Referenciando a classe ClienteService dentro da classe ClienteController
@@ -18,35 +24,50 @@ public class ClienteController {
      //Implantação do método Get com annotation GetMapping para coletar valores
      //Implantação da annotation RequestMapping para indicação do caminho do endpoint
       @GetMapping
-      @RequestMapping("/all")
-      public String buscaClientes(){
-          return "Metodo retornar clientes";
+      @RequestMapping("/clientes")
+      public ResponseEntity<List<Cliente>> buscaClientes(){
+          return ResponseEntity.ok(clienteService.buscaClientes());
 
       }
-      //Implantação da annotation PathVariable para retornar dados do Postman na chave Id
+
+    //Implantação da annotation PathVariable para retornar dados do Postman na chave Id
      @GetMapping("/{id}")
-     public String buscaClientePorId(@PathVariable Long id){
-         System.out.println("id do cliente a ser localizado " + id);
-         Cliente cliente = new Cliente();
-         cliente.setIdCliente(id);
-         cliente.setNome("Pedro\n");
-         cliente.setEmail("ooooooo");
+     @RequestMapping("/cliente")
+     public ResponseEntity<?> buscaClientePorId(@PathVariable Long id){
+         Optional<Cliente> cliente = clienteService.buscaClientePorId(id);
 
-         return cliente.getNome() + cliente.getEmail();
+         if (cliente.isPresent()) {
+             return ResponseEntity.ok(cliente.get());
+         }
 
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }
+
+
      //Implantação do método Post para inserção de dados no objeto Cliente
      @PostMapping
-     public String insereCliente(@RequestBody Cliente cliente){
-         System.out.println(cliente.getNome());
-         return "Método criar cliente";
+     @RequestMapping("/clientepf")
+     public ResponseEntity<ClientePF> insereClientePF(@RequestBody ClientePF clientePF){
 
+         return ResponseEntity.ok(clienteService.insereClientePF(clientePF));
      }
+
+    @PostMapping
+    @RequestMapping("/clientepj")
+    public ResponseEntity<ClientePJ> insereClientePJ(@RequestBody ClientePJ clientePJ){
+
+        return ResponseEntity.ok(clienteService.insereClientePJ(clientePJ));
+    }
+
     //Implantação do método Put para alteração de dados no objeto Cliente
-     @PutMapping("/{id}")
-     public String alteraCliente(@RequestBody Cliente cliente){
-         return "Metodo alterar cliente";
-
+     @PutMapping("/alteraclientepf")
+     public ResponseEntity<ClientePF> alteraClientePF(@RequestBody ClientePF clientePF){
+         return ResponseEntity.ok(clienteService.alteraClientePF(clientePF));
      }
+
+    @PutMapping("/alteraclientepj")
+    public ResponseEntity<ClientePJ> alteraClientePJ(@RequestBody ClientePJ clientePJ){
+        return ResponseEntity.ok(clienteService.alteraClientePJ(clientePJ));
+    }
 
    }

@@ -2,9 +2,12 @@ package br.com.ucanbank.model;
 
 import br.com.ucanbank.enumeration.StatusCliente;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.Objects;
 
 @Entity
+@DiscriminatorValue("pj")
 public class ClientePJ extends Cliente{
     private String cnpj;
 
@@ -26,5 +29,19 @@ public class ClientePJ extends Cliente{
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ClientePJ clientePJ = (ClientePJ) o;
+        return cnpj.equals(clientePJ.cnpj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), cnpj);
     }
 }
