@@ -31,6 +31,7 @@ public class Cliente {
     private String endereco;
 
     @Column(name = "status_cliente")
+    @Enumerated(EnumType.STRING)
     private StatusCliente statusCliente = StatusCliente.INATIVO;
 
     public Cliente() {
