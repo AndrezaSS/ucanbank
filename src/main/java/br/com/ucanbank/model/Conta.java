@@ -33,7 +33,7 @@ public class Conta {
     @Column(name = "numconta")
     private String numConta;
     @Column(name = "saldo")
-    private double saldo;
+    private double saldo = 100.00;
     public Conta() {
     }
 

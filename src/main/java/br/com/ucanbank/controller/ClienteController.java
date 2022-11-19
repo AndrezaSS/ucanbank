@@ -31,8 +31,7 @@ public class ClienteController {
       }
 
     //Implantação da annotation PathVariable para retornar dados do Postman na chave Id
-     @GetMapping("/{id}")
-     @RequestMapping("/cliente")
+     @GetMapping("/cliente/{id}")
      public ResponseEntity<?> buscaClientePorId(@PathVariable Long id){
          Optional<Cliente> cliente = clienteService.buscaClientePorId(id);
 
@@ -43,7 +42,7 @@ public class ClienteController {
          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }
 
-
+/*
      //Implantação do método Post para inserção de dados no objeto Cliente
      @PostMapping
      @RequestMapping("/clientepf")
@@ -69,5 +68,7 @@ public class ClienteController {
     public ResponseEntity<ClientePJ> alteraClientePJ(@RequestBody ClientePJ clientePJ){
         return ResponseEntity.ok(clienteService.alteraClientePJ(clientePJ));
     }
+
+ */
 
    }
