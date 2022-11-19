@@ -8,39 +8,46 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "transacao")
-public class Transacao {
+public class Transacao extends Conta {
 
     @ManyToOne
-    @JoinColumn (name="IdContaOrigem")  //Chave estrangeira
+    @JoinColumn(name = "IdContaOrigem")  //Chave estrangeira
     @JsonIgnore
     private Conta contaOrigem;
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
     @Column(name = "conta_destino")
-    private String contaDestino;
+    private Conta contaDestino;
 
     @Column(name = "data_transacao")
     private LocalDate dataTransacao;
     @Column(name = "valor_transacao")
     private double valorTransacao;
 
-    public String getContaDestino() {
+    public Conta getContaOrigem() {
+        return contaOrigem;
+    }
+
+    public void setContaOrigem(Conta contaOrigem) {
+        this.contaOrigem = contaOrigem;
+    }
+
+    public Conta getContaDestino() {
         return contaDestino;
     }
 
-    public void setContaDestino(String contaDestino) {
+    public void setContaDestino(Conta contaDestino) {
         this.contaDestino = contaDestino;
     }
-
 
 
     public Transacao() {
     }
 
 
-    public Transacao(Conta contaOrigem, Long idTransacao, String contaDestino, LocalDate dataTransacao, double valorTransacao) {
+    public Transacao(Conta contaOrigem, Long idTransacao, Conta contaDestino, LocalDate dataTransacao, double valorTransacao) {
         this.contaOrigem = contaOrigem;
         this.idTransacao = idTransacao;
         this.contaDestino = contaDestino;
@@ -101,5 +108,20 @@ public class Transacao {
                 ", dataTransacao=" + dataTransacao +
                 ", valorTransacao=" + valorTransacao +
                 '}';
+    }
+
+    public void transferencia(Conta contaDestino, Conta contaOrigem, Double valor) {
+        valorTransacao = valor;
+        System.out.println(contaDestino.getIdConta());
+        if (valor > 0 && contaOrigem.getSaldo() >= valor) {
+            contaOrigem.setSaldo(getSaldo() - valor);
+            contaDestino.setSaldo(getSaldo() + valor);
+
+            System.out.println("O valor do saldo final da conta destino é" + contaDestino.getSaldo());
+            System.out.println("O valor do saldo final da conta origem é" + contaOrigem.getSaldo());
+
+        } else {
+            System.out.println("Não foi possível realizar a transferência");
+        }
     }
 }

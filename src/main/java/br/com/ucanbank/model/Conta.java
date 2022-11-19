@@ -9,12 +9,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "conta")
 public class Conta {
-
-
     @OneToMany(mappedBy = "contaOrigem")
     @JsonIgnore
     List<Transacao> transacao;
-
 
     @OneToOne
     private ClientePF clientePF;
@@ -26,7 +23,6 @@ public class Conta {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_conta")
     private Long IdContaOrigem;
-
 
     @Column(name = "agencia")
     private String agencia;

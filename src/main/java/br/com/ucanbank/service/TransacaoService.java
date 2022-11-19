@@ -26,11 +26,15 @@ public class TransacaoService {
         return tr.findById(id);
     }
 
+
     @PostMapping
     public Transacao insereTransacao(Transacao transacao){
+
+        Transacao transacao1 = new Transacao();
+        transacao1.transferencia(transacao.getContaOrigem(), transacao.getContaDestino(),
+                transacao.getValorTransacao());
         return tr.save(transacao);
     }
-
 }
 
 
