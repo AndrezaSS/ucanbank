@@ -18,19 +18,22 @@ public class Transacao {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
-    @Column(name = "conta_destino")
-    private String contaDestino;
+
+    @ManyToOne
+    @JoinColumn(name = "contaDestino")
+    @JsonIgnore
+    private Conta contaDestino;
 
     @Column(name = "data_transacao")
     private LocalDate dataTransacao;
     @Column(name = "valor_transacao")
     private double valorTransacao;
 
-    public String getContaDestino() {
+    public Conta getContaDestino() {
         return contaDestino;
     }
 
-    public void setContaDestino(String contaDestino) {
+    public void setContaDestino(Conta contaDestino) {
         this.contaDestino = contaDestino;
     }
 
@@ -40,12 +43,20 @@ public class Transacao {
     }
 
 
-    public Transacao(Conta contaOrigem, Long idTransacao, String contaDestino, LocalDate dataTransacao, double valorTransacao) {
+    public Transacao(Conta contaOrigem, Long idTransacao, Conta contaDestino, LocalDate dataTransacao, double valorTransacao) {
         this.contaOrigem = contaOrigem;
         this.idTransacao = idTransacao;
         this.contaDestino = contaDestino;
         this.dataTransacao = dataTransacao;
         this.valorTransacao = valorTransacao;
+    }
+
+    public Conta getContaOrigem() {
+        return contaOrigem;
+    }
+
+    public void setContaOrigem(Conta contaOrigem) {
+        this.contaOrigem = contaOrigem;
     }
 
     public Long getIdTransacao() {
@@ -102,4 +113,20 @@ public class Transacao {
                 ", valorTransacao=" + valorTransacao +
                 '}';
     }
+
+    public void transferencia(Conta contaDestino, Conta contaOrigem, Double valor) {
+        valorTransacao = valor;
+        System.out.println(contaDestino.getIdConta());
+        if (valor > 0 && contaOrigem.getSaldo() >= valor) {
+            contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
+            contaDestino.setSaldo(contaDestino.getSaldo() + valor);
+
+            System.out.println("O valor do saldo final da conta destino é" + contaDestino.getSaldo());
+            System.out.println("O valor do saldo final da conta origem é" + contaOrigem.getSaldo());
+
+        } else {
+            System.out.println("Não foi possível realizar a transferência");
+        }
+    }
 }
+

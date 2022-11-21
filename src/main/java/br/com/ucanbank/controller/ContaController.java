@@ -1,8 +1,8 @@
 package br.com.ucanbank.controller;
 
 
-import br.com.ucanbank.model.Cliente;
 import br.com.ucanbank.model.ClientePF;
+import br.com.ucanbank.model.ClientePJ;
 import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.nio.file.Files.write;
 
 @RestController
 @RequestMapping("/conta")
@@ -35,8 +37,6 @@ public class ContaController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
-
     @PostMapping("/pf")
     public ResponseEntity<Conta> insereContaPF(@RequestBody Conta conta){
         return ResponseEntity.ok(contaService.insereContaPF(conta));
@@ -48,11 +48,13 @@ public class ContaController {
     }
 
 
-    @PutMapping
+    @PutMapping("/alteraconta/{id}")
     public ResponseEntity<Conta> alteraConta(@RequestBody Conta conta){
 
         return ResponseEntity.ok(contaService.alteraConta(conta));
     }
+
+
 
     //Implantação do método deletaConta usando annotation DeleteMapping para exclusão de Conta
     @DeleteMapping("/{id}")
@@ -65,15 +67,11 @@ public class ContaController {
 
         if (conta.isPresent()) {
             contaService.deletaConta(id);
-            return ResponseEntity.ok().body("Conta excluido com sucesso");
+            return ResponseEntity.ok().body("Conta excluida com sucesso");
 
         } else {
             return ResponseEntity.ok().body("Conta não encontrada");
         }
-
-
-
-
     }
 
 }

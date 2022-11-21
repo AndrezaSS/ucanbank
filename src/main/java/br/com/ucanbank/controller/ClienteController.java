@@ -42,7 +42,6 @@ public class ClienteController {
          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }
 
-/*
      //Implantação do método Post para inserção de dados no objeto Cliente
      @PostMapping
      @RequestMapping("/clientepf")
@@ -59,16 +58,16 @@ public class ClienteController {
     }
 
     //Implantação do método Put para alteração de dados no objeto Cliente
-     @PutMapping("/alteraclientepf")
+
+    @PutMapping("/alteraclientepf/{id}")
      public ResponseEntity<ClientePF> alteraClientePF(@RequestBody ClientePF clientePF){
          return ResponseEntity.ok(clienteService.alteraClientePF(clientePF));
      }
 
-    @PutMapping("/alteraclientepj")
+    @PutMapping("/alteraclientepj/{id}")
     public ResponseEntity<ClientePJ> alteraClientePJ(@RequestBody ClientePJ clientePJ){
         return ResponseEntity.ok(clienteService.alteraClientePJ(clientePJ));
     }
 
- */
 
    }
