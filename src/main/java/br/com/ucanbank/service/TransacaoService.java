@@ -1,8 +1,6 @@
 package br.com.ucanbank.service;
 
-import br.com.ucanbank.controller.TransacaoController;
-import br.com.ucanbank.model.ClientePF;
-import br.com.ucanbank.model.Conta;
+import br.com.ucanbank.exceptions.SaldoInsuficienteException;
 import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.repository.ContaRepository;
 import br.com.ucanbank.repository.TransacaoRepository;
@@ -23,26 +21,35 @@ public class TransacaoService {
     @Autowired
     private ContaRepository cr;
 
-
     @Autowired
     private ContaService cs;
 
     @GetMapping
     public List<Transacao> buscaTransacoes(){
-        return tr.findAll();
+        try{
+            return tr.findAll();
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar a lista de transações");
+        }
     }
     @GetMapping
     public Optional<Transacao> buscaTransacaoPorId(Long id){
-        return tr.findById(id);
+        try{
+            return tr.findById(id);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma transação por id");
+        }
     }
-
     @PostMapping
-    public Transacao insereTransacao(Transacao transacao){
-        Transacao transacao1 = new Transacao();
-        transacao1.transferencia(transacao.getContaOrigem(), transacao.getContaDestino(),
-                transacao.getValorTransacao());
-        return tr.save(transacao);
-
+    public Transacao insereTransacao(Transacao transacao) throws SaldoInsuficienteException{
+        try{
+            Transacao transacao1 = new Transacao();
+            transacao1.transferencia(transacao.getContaOrigem(), transacao.getContaDestino(),
+                    transacao.getValorTransacao());
+            return tr.save(transacao);
+        }catch (SaldoInsuficienteException e) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
+        }
     }
 }
 

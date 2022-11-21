@@ -1,7 +1,7 @@
 package br.com.ucanbank.controller;
 
 
-import br.com.ucanbank.model.Conta;
+import br.com.ucanbank.exceptions.SaldoInsuficienteException;
 import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +21,32 @@ public class TransacaoController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<List<Transacao>> buscaTransacoes(){
-        return ResponseEntity.ok(transacaoService.buscaTransacoes());
+        try{
+            return ResponseEntity.ok(transacaoService.buscaTransacoes());
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar a lista de transações");
+        }
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> buscaTransacaoPorId(@PathVariable Long id){
+        try{
+            Optional<Transacao> transacao = transacaoService.buscaTransacaoPorId(id);
 
-        Optional<Transacao> transacao = transacaoService.buscaTransacaoPorId(id);
-
-        if (transacao.isPresent()) {
-            return ResponseEntity.ok(transacao.get());
+            if (transacao.isPresent()) {
+                return ResponseEntity.ok(transacao.get());
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma transação por id");
         }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 
     @PostMapping
-    public ResponseEntity<Transacao> insereTransacao(@RequestBody Transacao transacao){
-        return ResponseEntity.ok(transacaoService.insereTransacao(transacao));
+    public ResponseEntity<Transacao> insereTransacao (@RequestBody Transacao transacao) throws SaldoInsuficienteException {
+        try{
+            return ResponseEntity.ok(transacaoService.insereTransacao(transacao));
+        }catch (SaldoInsuficienteException e) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
+        }
     }
-
 }
