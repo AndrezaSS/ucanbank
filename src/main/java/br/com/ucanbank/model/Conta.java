@@ -27,13 +27,12 @@ public class Conta {
     @Column(name = "id_conta")
     private Long IdContaOrigem;
 
-
     @Column(name = "agencia")
     private String agencia;
     @Column(name = "numconta")
     private String numConta;
     @Column(name = "saldo")
-    private double saldo = 100.00;
+    private double saldo;
     public Conta() {
     }
 

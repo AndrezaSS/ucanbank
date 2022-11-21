@@ -2,6 +2,7 @@ package br.com.ucanbank.service;
 
 import br.com.ucanbank.model.Cliente;
 import br.com.ucanbank.model.ClientePF;
+import br.com.ucanbank.model.ClientePJ;
 import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.repository.ClienteRepository;
 import br.com.ucanbank.repository.ContaRepository;
@@ -45,8 +46,8 @@ public class ContaService {
 
     @PostMapping
     public Conta insereContaPJ(Conta conta) {
-        ClientePF clientepf = cr.save(conta.getClientePF());
-        conta.setClientePF(clientepf);
+        ClientePJ clientepj = cr.save(conta.getClientePJ());
+        conta.setClientePJ(clientepj);
         return crc.save(conta);
     }
 
@@ -54,6 +55,7 @@ public class ContaService {
     public Conta alteraConta(Conta conta) {
         return crc.save(conta);
     }
+
 
     @DeleteMapping
     public void deletaConta(Long id) {

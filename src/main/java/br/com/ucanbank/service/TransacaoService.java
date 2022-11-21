@@ -1,5 +1,7 @@
 package br.com.ucanbank.service;
 
+import br.com.ucanbank.controller.TransacaoController;
+import br.com.ucanbank.model.ClientePF;
 import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.repository.ContaRepository;
@@ -17,6 +19,14 @@ public class TransacaoService {
 
     @Autowired
     private TransacaoRepository tr;
+
+    @Autowired
+    private ContaRepository cr;
+
+
+    @Autowired
+    private ContaService cs;
+
     @GetMapping
     public List<Transacao> buscaTransacoes(){
         return tr.findAll();
@@ -28,9 +38,12 @@ public class TransacaoService {
 
     @PostMapping
     public Transacao insereTransacao(Transacao transacao){
+        Transacao transacao1 = new Transacao();
+        transacao1.transferencia(transacao.getContaOrigem(), transacao.getContaDestino(),
+                transacao.getValorTransacao());
         return tr.save(transacao);
-    }
 
+    }
 }
 
 
