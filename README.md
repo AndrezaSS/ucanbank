@@ -17,8 +17,10 @@ Data de entrega: 23/11/2022
 
 ## Definição:
 Trata-se da criação de um banco fictício que está construindo uma nova plataforma e precisa de um sistema para gerenciar clientes e transações.
-Habilidades utilizadas:
-Foram utilizados os conceitos de Java com orientação a Objetos, onde classes foram criadas para representar as entidades gerenciadas. Para armazenar os dados, aplicamos os conceitos de bancos de dados relacional. Em específico neste projeto, utilizamos o MySQL Workbench. Para criação do projeto, utilizamos o Maven com Spring Boot (Java Web, actuator, data jpa, msql-jdbc).	
+
+## Habilidades utilizadas:
+
+Foram utilizados os conceitos de Java com orientação a Objetos, onde classes foram criadas para representar as entidades gerenciadas. Para armazenar os dados, aplicamos os conceitos de bancos de dados relacional. Em específico neste projeto, utilizamos o MySQL Workbench. Para criação do projeto, utilizamos o Maven com Spring Boot (Java Web, actuator, data jpa, msql-jdbc, Lombok).	
 
 ## Tecnologias necessárias para utilização do sistema:
 + Apache Maven
@@ -42,7 +44,7 @@ O sistema permite o cadastro de novos clientes, incluindo dados pessoais e dados
 ### Contas:
 
 -	`Get` Buscar contas: http://localhost:8080/conta/all 
--	`Get` Buscar conta por id: http://localhost:8080/conta/1
+-	`Get` Buscar conta por id: http://localhost:8080/conta
 -	`Post` Criar conta: http://localhost:8080/conta/pf
 -	`Put` Alterar conta: http://localhost:8080/conta/pj/1
 -	`Delete` Deletar conta: http://localhost:8080/conta/1
