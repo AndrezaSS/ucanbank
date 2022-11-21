@@ -32,25 +32,25 @@ O sistema permite o cadastro de novos clientes, incluindo dados pessoais e dados
 
 ### Clientes:
 
--	`Get` Buscar clientes: http://localhost:3306/clientes
--	`Get` Buscar cliente por id: http://localhost:3306/cliente/1
+-	`Get` Buscar clientes: http://localhost:8080/clientes
+-	`Get` Buscar cliente por id: http://localhost:8080/cliente/1
 -	`Post` Criar cliente PF: http://localhost:8080/clientepf
 -	`Post` Criar cliente PJ: http://localhost:8080/clientepj
--	`Put` Alterar cliente PF: http://localhost:8080/alteraclientepf
--	`Put` Alterar cliente PJ: http://localhost:8080/alteraclientepj
+-	`Put` Alterar cliente PF: http://localhost:8080/alteraclientepf/1
+-	`Put` Alterar cliente PJ: http://localhost:8080/alteraclientepj/1
 
 ### Contas:
 
 -	`Get` Buscar contas: http://localhost:8080/conta/all 
 -	`Get` Buscar conta por id: http://localhost:8080/conta/1
 -	`Post` Criar conta: http://localhost:8080/conta/pf
--	`Put` Alterar conta: http://localhost:8080/conta
+-	`Put` Alterar conta: http://localhost:8080/conta/pj/1
 -	`Delete` Deletar conta: http://localhost:8080/conta/1
 
 ### Transações:
 
 -	`Get`  Buscar transações: http://localhost:8080/transacao/all
 - 	`Get`  Buscar transação por id: http://localhost:8080/transacao/1
--	`Post`  Criar transação: http://localhost:8080/transacao
+-	`Post`  Criar transação: http://localhost:8080/transacao/1
  
     
