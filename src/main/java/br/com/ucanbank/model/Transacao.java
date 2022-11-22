@@ -1,105 +1,57 @@
 package br.com.ucanbank.model;
 
+import br.com.ucanbank.exceptions.SaldoInsuficienteException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Entity
-@Table(name = "transacao")
-public class Transacao {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 
+    @Entity
+    @Table(name = "transacao")
+    public class Transacao {
+
+    //As entidades Transacao e Conta possuem uma relação N-1.
     @ManyToOne
-    @JoinColumn (name="IdContaOrigem")  //Chave estrangeira
+    @JoinColumn (name="IdContaOrigem")  //chave estrangeira da tabela Transacao
     @JsonIgnore
     private Conta contaOrigem;
+
+    @ManyToOne
+    @JoinColumn(name = "contaDestino") //chave estrangeira da tabela Transacao
+    @JsonIgnore
+    private Conta contaDestino;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
-    @Column(name = "conta_destino")
-    private String contaDestino;
 
     @Column(name = "data_transacao")
     private LocalDate dataTransacao;
+
     @Column(name = "valor_transacao")
     private double valorTransacao;
 
-    public String getContaDestino() {
-        return contaDestino;
-    }
+    //Método que transfere de uma conta para outra conta
+    public void transferencia(Conta contaDestino, Conta contaOrigem, Double valor) throws SaldoInsuficienteException {
+        valorTransacao = valor;
 
-    public void setContaDestino(String contaDestino) {
-        this.contaDestino = contaDestino;
-    }
+        if (valor > 0 && contaOrigem.getSaldo() >= valor) {
+            contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
+            contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 
+        } else {
 
-
-    public Transacao() {
-    }
-
-
-    public Transacao(Conta contaOrigem, Long idTransacao, String contaDestino, LocalDate dataTransacao, double valorTransacao) {
-        this.contaOrigem = contaOrigem;
-        this.idTransacao = idTransacao;
-        this.contaDestino = contaDestino;
-        this.dataTransacao = dataTransacao;
-        this.valorTransacao = valorTransacao;
-    }
-
-    public Long getIdTransacao() {
-
-        return idTransacao;
-    }
-
-    public void setIdTransacao(Long idTransacao) {
-
-        this.idTransacao = idTransacao;
-    }
-
-    public LocalDate getDataTransacao() {
-
-        return dataTransacao;
-    }
-
-    public void setDataTransacao(LocalDate dataTransacao) {
-
-        this.dataTransacao = dataTransacao;
-    }
-
-    public double getValorTransacao() {
-
-        return valorTransacao;
-    }
-
-    public void setValorTransacao(double valorTransacao) {
-
-        this.valorTransacao = valorTransacao;
-    }
-
-    //Método utilizado pelo JPA para comparação de objetos
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transacao transacao = (Transacao) o;
-        return idTransacao.equals(transacao.idTransacao);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idTransacao);
-    }
-
-    @Override
-    public String toString() {
-        return "Transacao{" +
-                "contaOrigem=" + contaOrigem +
-                ", idTransacao=" + idTransacao +
-                ", contaDestino='" + contaDestino + '\'' +
-                ", dataTransacao=" + dataTransacao +
-                ", valorTransacao=" + valorTransacao +
-                '}';
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
+        }
     }
 }
+

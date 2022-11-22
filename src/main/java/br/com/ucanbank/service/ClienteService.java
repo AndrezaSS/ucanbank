@@ -13,49 +13,63 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 import java.util.Optional;
 
-
-@Component
-public class ClienteService {
+    @Component
+    public class ClienteService {
 
     @Autowired
     private ClienteRepository cr;
+
     @GetMapping
     public List<Cliente> buscaClientes(){
-        return cr.findAll();
+        try{
+            return cr.findAll();
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar os clientes");
+        }
     }
+
     @GetMapping
     public Optional<Cliente> buscaClientePorId(Long id){
-        return cr.findById(id);
+        try{
+            return cr.findById(id);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar um cliente por id");
+        }
     }
 
     @PostMapping
     public ClientePF insereClientePF(ClientePF clientePF){
-
-        return cr.save(clientePF);
+        try{
+            return cr.save(clientePF);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir um cliente PF");
+        }
     }
 
     @PostMapping
     public ClientePJ insereClientePJ(ClientePJ clientePJ){
-        return cr.save(clientePJ);
+        try{
+            return cr.save(clientePJ);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir um cliente PJ");
+        }
     }
 
     @PutMapping
     public ClientePF alteraClientePF(ClientePF clientePF){
-        return cr.save(clientePF);
+        try{
+            return cr.save(clientePF);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar um cliente PF");
+        }
     }
 
     @PutMapping
     public ClientePJ alteraClientePJ(ClientePJ clientePJ){
-
-        return cr.save(clientePJ);
+        try{
+            return cr.save(clientePJ);
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar um cliente PJ");
+        }
     }
-
-    public static void main(String[] args) {
-
-        Cliente c = new Cliente();
-        c.getStatusCliente();
-        System.out.println(c.getStatusCliente());
-
-    }
-
 }
