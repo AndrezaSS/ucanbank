@@ -1,13 +1,10 @@
 package br.com.ucanbank.model;
 
-
 import br.com.ucanbank.enumeration.StatusCliente;
 import lombok.*;
 
 import javax.persistence.*;
 
-
-//Implantação do Entity para declarar que estas classes são entidades e devem ser persistidas no BD
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,14 +12,14 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 
+//Apesar dos objetos clientePF, clientePJ serem herança da entidade Cliente, optamos em construir 1 única tabela para os respectivos objetos
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Tipo")
 public class Cliente {
 
 
-
-    //Uso de annotation Id e GenerateValue para autoincremento automático na criação dos Ids
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_cliente")
@@ -39,6 +36,5 @@ public class Cliente {
     @Column(name = "status_cliente")
     @Enumerated(EnumType.STRING)
     private StatusCliente statusCliente = StatusCliente.INATIVO;
-
 
 }

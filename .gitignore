@@ -248,4 +248,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Senhas do mysql
+
+resources
+
+application.properties
+
+
+
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,macos,linux,intellij

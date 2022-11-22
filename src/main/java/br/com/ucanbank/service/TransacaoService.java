@@ -43,17 +43,6 @@ public class TransacaoService {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma transação por id");
         }
     }
-    /*@PostMapping
-    public Transacao insereTransacao(Transacao transacao) throws SaldoInsuficienteException{
-        try{
-            Transacao transacao1 = new Transacao();
-            transacao1.transferencia(transacao.getContaOrigem(), transacao.getContaDestino(),
-                    transacao.getValorTransacao());
-            return tr.save(transacao);
-        }catch (SaldoInsuficienteException e) {
-            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
-        }
-    }*/
 
     @PostMapping
     public Transacao insereTransacao(TransacaoDTO transacaoDTO) throws SaldoInsuficienteException {
@@ -61,6 +50,7 @@ public class TransacaoService {
             Transacao transacao1 = new Transacao();
             transacao1.setContaOrigem(cr.findById(transacaoDTO.getContaOrigem()).get());
             transacao1.setContaDestino(cr.findById(transacaoDTO.getContaDestino()).get());
+            transacao1.setDataTransacao(transacaoDTO.getDataTransacao());
             transacao1.setValorTransacao(transacaoDTO.getValorTransacao());
 
             transacao1.transferencia(transacao1.getContaDestino(), transacao1.getContaOrigem(),

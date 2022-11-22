@@ -8,9 +8,4 @@ public class UcanbankApplication {
 
 	public static void main(String[] args) {SpringApplication.run(UcanbankApplication.class, args);
 	}
-
-
-
-
-
 }

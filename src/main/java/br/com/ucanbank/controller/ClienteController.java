@@ -12,17 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//Implantação do RestController para indicação da classe como controller
 @RestController
 
 public class ClienteController {
 
-     //Referenciando a classe ClienteService dentro da classe ClienteController
      @Autowired
      private ClienteService clienteService;
 
-     //Implantação do método Get com annotation GetMapping para coletar valores
-     //Implantação da annotation RequestMapping para indicação do caminho do endpoint
       @GetMapping
       @RequestMapping("/clientes")
       public ResponseEntity<List<Cliente>> buscaClientes(){
@@ -33,7 +29,6 @@ public class ClienteController {
           }
       }
 
-    //Implantação da annotation PathVariable para retornar dados do Postman na chave Id
      @GetMapping("/cliente/{id}")
      public ResponseEntity<?> buscaClientePorId(@PathVariable Long id){
          try{
@@ -49,7 +44,6 @@ public class ClienteController {
          }
      }
 
-     //Implantação do método Post para inserção de dados no objeto Cliente
      @PostMapping
      @RequestMapping("/clientepf")
      public ResponseEntity<ClientePF> insereClientePF(@RequestBody ClientePF clientePF){
@@ -70,8 +64,6 @@ public class ClienteController {
         }
     }
 
-    //Implantação do método Put para alteração de dados no objeto Cliente
-
     @PutMapping("/alteraclientepf/{id}")
      public ResponseEntity<ClientePF> alteraClientePF(@RequestBody ClientePF clientePF){
          try{
@@ -89,4 +81,4 @@ public class ClienteController {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar um cliente PJ");
         }
     }
-   }
+}

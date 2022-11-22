@@ -18,5 +18,4 @@ import javax.persistence.Entity;
 public class ClientePJ extends Cliente{
     private String cnpj;
 
-
 }

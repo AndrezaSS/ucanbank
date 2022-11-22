@@ -17,14 +17,16 @@ import java.util.List;
 @Table(name = "conta")
 public class Conta {
 
-
+    //As entidades Conta e Transação possuem uma relação 1-N.
     @OneToMany(mappedBy = "contaOrigem")
     @JsonIgnore
     List<Transacao> transacao;
 
+    //As entidades ClientePF e Conta possuem uma relação 1-1.
     @OneToOne
     private ClientePF clientePF;
 
+    //As entidades ClientePJ e Conta possuem uma relação 1-1.
     @OneToOne
     private ClientePJ clientePJ;
 

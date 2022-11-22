@@ -16,4 +16,5 @@ public class TransacaoDTO {
     private Long contaDestino;
     private LocalDate dataTransacao;
     private double valorTransacao;
+
 }

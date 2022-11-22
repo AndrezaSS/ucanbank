@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 import java.util.Optional;
 
-//Uso da annotation Component para indicação que essa classe será gerenciada pelo SpringBoot
-@Component
-public class ContaService {
+    @Component
+    public class ContaService {
 
     @Autowired
     private ContaRepository crc;
@@ -75,7 +74,6 @@ public class ContaService {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar a conta");
         }
     }
-
 
     @DeleteMapping
     public void deletaConta(Long id) {
