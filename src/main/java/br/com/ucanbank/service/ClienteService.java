@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 import java.util.Optional;
 
-
-@Component
-public class ClienteService {
+    @Component
+    public class ClienteService {
 
     @Autowired
     private ClienteRepository cr;
@@ -28,6 +27,7 @@ public class ClienteService {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar os clientes");
         }
     }
+
     @GetMapping
     public Optional<Cliente> buscaClientePorId(Long id){
         try{

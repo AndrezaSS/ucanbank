@@ -1,7 +1,5 @@
 package br.com.ucanbank.controller;
 
-
-
 import br.com.ucanbank.model.Conta;
 import br.com.ucanbank.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/conta")
 public class ContaController {
 
     @Autowired
     private ContaService contaService;
+
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<List<Conta>> buscaContas(){
@@ -29,6 +27,7 @@ public class ContaController {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar as contas");
         }
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> buscaContaPorId(@PathVariable Long id){
         try{
@@ -63,7 +62,6 @@ public class ContaController {
         }
     }
 
-
     @PutMapping("/alteraconta/{id}")
     public ResponseEntity<Conta> alteraConta(@RequestBody Conta conta){
         try{
@@ -73,8 +71,6 @@ public class ContaController {
         }
     }
 
-
-    //Implantação do método deletaConta usando annotation DeleteMapping para exclusão de Conta
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletaConta(@PathVariable Long id) {
         try{

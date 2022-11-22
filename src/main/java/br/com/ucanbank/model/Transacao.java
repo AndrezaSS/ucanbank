@@ -14,30 +14,33 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 
-@Entity
-@Table(name = "transacao")
-public class Transacao {
+    @Entity
+    @Table(name = "transacao")
+    public class Transacao {
 
+    //As entidades Transacao e Conta possuem uma relação N-1.
     @ManyToOne
-    @JoinColumn (name="IdContaOrigem")  //Chave estrangeira
+    @JoinColumn (name="IdContaOrigem")  //chave estrangeira da tabela Transacao
     @JsonIgnore
     private Conta contaOrigem;
+
+    @ManyToOne
+    @JoinColumn(name = "contaDestino") //chave estrangeira da tabela Transacao
+    @JsonIgnore
+    private Conta contaDestino;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
 
-    @ManyToOne
-    @JoinColumn(name = "contaDestino")
-    @JsonIgnore
-    private Conta contaDestino;
-
     @Column(name = "data_transacao")
     private LocalDate dataTransacao;
+
     @Column(name = "valor_transacao")
     private double valorTransacao;
 
-
+    //Método que transfere de uma conta para outra conta
     public void transferencia(Conta contaDestino, Conta contaOrigem, Double valor) throws SaldoInsuficienteException {
         valorTransacao = valor;
 
@@ -49,7 +52,6 @@ public class Transacao {
 
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
         }
-
     }
 }
 
