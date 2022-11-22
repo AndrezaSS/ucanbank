@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -31,14 +32,18 @@ public class Conta {
     private ClientePJ clientePJ;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_conta")
     private Long IdContaOrigem;
 
     @Column(name = "agencia")
     private String agencia;
+
+    Random random = new Random();
+
     @Column(name = "numconta")
-    private String numConta;
+    private int numConta = random.nextInt(1000) * 5;
+    //private String numConta;
     @Column(name = "saldo")
     private double saldo;
 

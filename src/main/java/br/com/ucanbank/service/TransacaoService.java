@@ -3,7 +3,6 @@ package br.com.ucanbank.service;
 import br.com.ucanbank.exceptions.SaldoInsuficienteException;
 import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.model.TransacaoDTO;
-import br.com.ucanbank.repository.ClienteRepository;
 import br.com.ucanbank.repository.ContaRepository;
 import br.com.ucanbank.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
