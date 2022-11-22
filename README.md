@@ -47,7 +47,6 @@ O sistema permite o cadastro de novos clientes, incluindo dados pessoais e dados
 -	`Get` Buscar conta por id: http://localhost:8080/conta/{id}
 -	`Post` Criar conta PF: http://localhost:8080/conta/pf
 -	`Post` Criar conta PJ: http://localhost:8080/conta/pj
--	`Put` Alterar conta: http://localhost:8080/conta/alteraconta/{id}
 -	`Delete` Deletar conta: http://localhost:8080/conta/{id}
 
 ### Transações:
