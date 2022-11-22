@@ -35,24 +35,24 @@ O sistema permite o cadastro de novos clientes, incluindo dados pessoais e dados
 ### Clientes:
 
 -	`Get` Buscar clientes: http://localhost:8080/clientes
--	`Get` Buscar cliente por id: http://localhost:8080/cliente/1
+-	`Get` Buscar cliente por id: http://localhost:8080/cliente/{id}
 -	`Post` Criar cliente PF: http://localhost:8080/clientepf
 -	`Post` Criar cliente PJ: http://localhost:8080/clientepj
--	`Put` Alterar cliente PF: http://localhost:8080/alteraclientepf/1
--	`Put` Alterar cliente PJ: http://localhost:8080/alteraclientepj/1
+-	`Put` Alterar cliente PF: http://localhost:8080/alteraclientepf/{id}
+-	`Put` Alterar cliente PJ: http://localhost:8080/alteraclientepj/{id}
 
 ### Contas:
 
 -	`Get` Buscar contas: http://localhost:8080/conta/all 
--	`Get` Buscar conta por id: http://localhost:8080/conta
--	`Post` Criar conta: http://localhost:8080/conta/pf
--	`Put` Alterar conta: http://localhost:8080/conta/pj/1
--	`Delete` Deletar conta: http://localhost:8080/conta/1
+-	`Get` Buscar conta por id: http://localhost:8080/conta/{id}
+-	`Post` Criar conta PF: http://localhost:8080/conta/pf
+-	`Post` Criar conta PJ: http://localhost:8080/conta/pj
+-	`Delete` Deletar conta: http://localhost:8080/conta/{id}
 
 ### Transações:
 
 -	`Get`  Buscar transações: http://localhost:8080/transacao/all
-- 	`Get`  Buscar transação por id: http://localhost:8080/transacao/1
--	`Post`  Criar transação: http://localhost:8080/transacao/1
+- 	`Get`  Buscar transação por id: http://localhost:8080/transacao/{id}
+-	`Post`  Criar transação: http://localhost:8080/transacao
  
     
