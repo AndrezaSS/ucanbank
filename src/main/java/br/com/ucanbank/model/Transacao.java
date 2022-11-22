@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 
-    @Entity
-    @Table(name = "transacao")
-    public class Transacao {
+@Entity
+@Table(name = "transacao")
+public class Transacao {
 
     //As entidades Transacao e Conta possuem uma relação N-1.
     @ManyToOne
-    @JoinColumn (name="IdContaOrigem")  //chave estrangeira da tabela Transacao
+    @JoinColumn(name = "IdContaOrigem")  //chave estrangeira da tabela Transacao
     @JsonIgnore
     private Conta contaOrigem;
 
@@ -30,7 +30,7 @@ import java.time.LocalDate;
     private Conta contaDestino;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_transacao")
     private Long idTransacao;
 
