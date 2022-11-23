@@ -31,6 +31,9 @@ public class Conta {
     @OneToOne
     private ClientePJ clientePJ;
 
+    Random random = new Random();
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_conta")
@@ -40,7 +43,7 @@ public class Conta {
     private String agencia;
 
     @Column(name = "numconta")
-    private String numConta;
+    private int numConta = random.nextInt(1000)*5;
 
     @Column(name = "saldo")
     private double saldo;
