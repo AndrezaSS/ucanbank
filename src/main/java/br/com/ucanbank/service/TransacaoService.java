@@ -56,9 +56,6 @@ public class TransacaoService {
                     transacao1.getValorTransacao());
 
             return tr.save(transacao1);
-
-//        } catch (Exception e) {
-//            throw new SaldoInsuficienteException(e.getMessage() + " Erro ao tentar acessar a conta");
         }
     }
 

@@ -39,12 +39,13 @@ public class Conta {
     @Column(name = "agencia")
     private String agencia;
 
-    Random random = new Random();
+    //Random random = new Random();
 
     @Column(name = "numconta")
-    private int numConta = random.nextInt(1000) * 5;
-    //private String numConta;
+    //private int numConta = random.nextInt(1000)*5;
+    private String numConta;
+
     @Column(name = "saldo")
     private double saldo;
-
 }
+

@@ -21,62 +21,40 @@ public class ClienteController {
     @GetMapping
     @RequestMapping("/clientes")
     public ResponseEntity<List<Cliente>> buscaClientes() {
-        try {
-            return ResponseEntity.ok(clienteService.buscaClientes());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar os clientes");
-        }
+        return ResponseEntity.ok(clienteService.buscaClientes());
     }
 
     @GetMapping("/cliente/{id}")
     public ResponseEntity<?> buscaClientePorId(@PathVariable Long id) {
-        try {
-            Optional<Cliente> cliente = clienteService.buscaClientePorId(id);
 
-            if (cliente.isPresent()) {
-                return ResponseEntity.ok(cliente.get());
-            }
-            return ResponseEntity.ok().body("Id do cliente não encontrado");
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar um cliente por id");
+        Optional<Cliente> cliente = clienteService.buscaClientePorId(id);
+
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente.get());
         }
+        return ResponseEntity.ok().body("Id do cliente não encontrado");
+
     }
 
     @PostMapping
     @RequestMapping("/clientepf")
     public ResponseEntity<ClientePF> insereClientePF(@RequestBody ClientePF clientePF) {
-        try {
-            return ResponseEntity.ok(clienteService.insereClientePF(clientePF));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir um cliente PF");
-        }
+        return ResponseEntity.ok(clienteService.insereClientePF(clientePF));
     }
 
     @PostMapping
     @RequestMapping("/clientepj")
     public ResponseEntity<ClientePJ> insereClientePJ(@RequestBody ClientePJ clientePJ) {
-        try {
-            return ResponseEntity.ok(clienteService.insereClientePJ(clientePJ));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir um cliente PJ");
-        }
+        return ResponseEntity.ok(clienteService.insereClientePJ(clientePJ));
     }
 
     @PutMapping("/alteraclientepf/{id}")
     public ResponseEntity<ClientePF> alteraClientePF(@RequestBody ClientePF clientePF) {
-        try {
-            return ResponseEntity.ok(clienteService.alteraClientePF(clientePF));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar um cliente PF");
-        }
+        return ResponseEntity.ok(clienteService.alteraClientePF(clientePF));
     }
 
     @PutMapping("/alteraclientepj/{id}")
     public ResponseEntity<ClientePJ> alteraClientePJ(@RequestBody ClientePJ clientePJ) {
-        try {
-            return ResponseEntity.ok(clienteService.alteraClientePJ(clientePJ));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar um cliente PJ");
-        }
+        return ResponseEntity.ok(clienteService.alteraClientePJ(clientePJ));
     }
 }

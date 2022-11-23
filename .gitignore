@@ -249,11 +249,12 @@ $RECYCLE.BIN/
 *.lnk
 
 #Senhas do mysql
+.resources
 
-resources
 
 application.properties
 
 
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,macos,linux,intellij
+

@@ -22,29 +22,22 @@ public class TransacaoController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<List<Transacao>> buscaTransacoes() {
-        try {
-            return ResponseEntity.ok(transacaoService.buscaTransacoes());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar a lista de transações");
-        }
+        return ResponseEntity.ok(transacaoService.buscaTransacoes());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscaTransacaoPorId(@PathVariable Long id) {
-        try {
-            Optional<Transacao> transacao = transacaoService.buscaTransacaoPorId(id);
 
-            if (transacao.isPresent()) {
-                return ResponseEntity.ok(transacao.get());
-            }
-            return ResponseEntity.ok().body("Id de transação não encontrado");
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma transação por id");
+        Optional<Transacao> transacao = transacaoService.buscaTransacaoPorId(id);
+
+        if (transacao.isPresent()) {
+            return ResponseEntity.ok(transacao.get());
         }
+        return ResponseEntity.ok().body("Id de transação não encontrado");
     }
 
     @PostMapping
-    public ResponseEntity<Transacao> insereTransacao(@RequestBody TransacaoDTO transacaoDTO) {
+    public ResponseEntity<Transacao> insereTransacao(@RequestBody TransacaoDTO transacaoDTO) throws SaldoInsuficienteException {
         try {
             return ResponseEntity.ok(transacaoService.insereTransacao(transacaoDTO));
         } catch (SaldoInsuficienteException e) {

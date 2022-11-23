@@ -19,66 +19,45 @@ public class ContaController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<List<Conta>> buscaContas() {
-        try {
-            return ResponseEntity.ok(contaService.buscaContas());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar as contas");
-        }
+        return ResponseEntity.ok(contaService.buscaContas());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscaContaPorId(@PathVariable Long id) {
-        try {
-            Optional<Conta> conta = contaService.buscaContaPorId(id);
 
-            if (conta.isPresent()) {
-                return ResponseEntity.ok(conta.get());
+        Optional<Conta> conta = contaService.buscaContaPorId(id);
 
-            }
-            return ResponseEntity.ok().body("Id de conta não encontrado");
+        if (conta.isPresent()) {
+            return ResponseEntity.ok(conta.get());
 
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma conta por id");
         }
+        return ResponseEntity.ok().body("Id de conta não encontrado");
     }
 
     @PostMapping("/pf")
     public ResponseEntity<Conta> insereContaPF(@RequestBody Conta conta) {
-        try {
-            return ResponseEntity.ok(contaService.insereContaPF(conta));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir uma conta PF");
-        }
+        return ResponseEntity.ok(contaService.insereContaPF(conta));
     }
 
     @PostMapping("/pj")
     public ResponseEntity<Conta> insereContaPJ(@RequestBody Conta conta) {
-        try {
-            return ResponseEntity.ok(contaService.insereContaPJ(conta));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir uma conta PJ");
-        }
+        return ResponseEntity.ok(contaService.insereContaPJ(conta));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletaConta(@PathVariable Long id) {
-        try {
-            if (id == null) {
-                return ResponseEntity.badRequest().body("Id não pode ser null");
-            }
+        if (id == null) {
+            return ResponseEntity.badRequest().body("Id não pode ser null");
+        }
 
-            Optional<Conta> conta = contaService.buscaContaPorId(id);
+        Optional<Conta> conta = contaService.buscaContaPorId(id);
 
-            if (conta.isPresent()) {
-                contaService.deletaConta(id);
-                return ResponseEntity.ok().body("Conta excluida com sucesso");
+        if (conta.isPresent()) {
+            contaService.deletaConta(id);
+            return ResponseEntity.ok().body("Conta excluida com sucesso");
 
-            } else {
-                return ResponseEntity.ok().body("Conta não encontrada");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar deletar o cliente");
+        } else {
+            return ResponseEntity.ok().body("Conta não encontrada");
         }
     }
 }
