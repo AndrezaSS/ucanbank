@@ -45,7 +45,7 @@ public class TransacaoService {
 
     @PostMapping
     public Transacao insereTransacao(TransacaoDTO transacaoDTO) throws SaldoInsuficienteException {
-        try {
+
             Transacao transacao1 = new Transacao();
             transacao1.setContaOrigem(cr.findById(transacaoDTO.getContaOrigem()).get());
             transacao1.setContaDestino(cr.findById(transacaoDTO.getContaDestino()).get());
@@ -57,10 +57,10 @@ public class TransacaoService {
 
             return tr.save(transacao1);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + " Erro ao tentar acessar a conta");
+//        } catch (Exception e) {
+//            throw new SaldoInsuficienteException(e.getMessage() + " Erro ao tentar acessar a conta");
         }
     }
-}
+
 
 
