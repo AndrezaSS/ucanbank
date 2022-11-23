@@ -5,6 +5,7 @@ import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.model.TransacaoDTO;
 import br.com.ucanbank.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,11 +44,11 @@ public class TransacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Transacao> insereTransacao(@RequestBody TransacaoDTO transacaoDTO) throws SaldoInsuficienteException {
+    public ResponseEntity<Transacao> insereTransacao(@RequestBody TransacaoDTO transacaoDTO) {
         try {
             return ResponseEntity.ok(transacaoService.insereTransacao(transacaoDTO));
         } catch (SaldoInsuficienteException e) {
-            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transação");
+            return new ResponseEntity<>(new Transacao(), HttpStatus.BAD_REQUEST);
         }
     }
 }
