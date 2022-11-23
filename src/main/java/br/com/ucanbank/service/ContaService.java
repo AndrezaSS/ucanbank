@@ -10,13 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Optional;
 
-    @Component
-    public class ContaService {
+@Component
+public class ContaService {
 
     @Autowired
     private ContaRepository crc;
@@ -26,18 +25,18 @@ import java.util.Optional;
 
     @GetMapping
     public List<Conta> buscaContas() {
-        try{
+        try {
             return crc.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar as contas");
         }
     }
 
     @GetMapping
     public Optional<Conta> buscaContaPorId(Long id) {
-        try{
+        try {
             return crc.findById(id);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma conta por id");
         }
     }
@@ -63,15 +62,6 @@ import java.util.Optional;
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar inserir uma conta PJ");
-        }
-    }
-
-    @PutMapping
-    public Conta alteraConta(Conta conta) {
-        try {
-            return crc.save(conta);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + "Erro ao tentar alterar a conta");
         }
     }
 

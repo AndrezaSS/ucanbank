@@ -1,6 +1,5 @@
 package br.com.ucanbank.model;
 
-import br.com.ucanbank.enumeration.StatusCliente;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
@@ -15,7 +14,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("pf")
-public class ClientePF extends Cliente{
+public class ClientePF extends Cliente {
     private String cpf;
 
 }

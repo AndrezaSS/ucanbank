@@ -5,7 +5,6 @@ import br.com.ucanbank.model.Transacao;
 import br.com.ucanbank.model.TransacaoDTO;
 import br.com.ucanbank.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +36,7 @@ public class TransacaoController {
             if (transacao.isPresent()) {
                 return ResponseEntity.ok(transacao.get());
             }
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok().body("Id de transação não encontrado");
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage() + "Erro ao tentar buscar uma transação por id");
         }
